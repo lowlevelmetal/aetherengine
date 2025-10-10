@@ -1,4 +1,3 @@
-````markdown
 # Aether Engine
 
 **Aether** is a lightweight **2D game engine** written in **C++**, built on top of **SDL3**.  
