@@ -14,6 +14,11 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 add_library(aether SHARED ${SOURCES})
 
-target_compile_definitions(aether PRIVATE SDL_STATIC)
+set_target_properties(aether PROPERTIES
+    CXX_VISIBILITY_PRESET "hidden"
+    VISBILITY_INLINES_HIDDEN "TRUE"
+)
+
+target_compile_definitions(aether PRIVATE SDL_STATIC AETHER_ENGINE_INTERNAL)
 
 target_link_libraries(aether PRIVATE SDL3::SDL3-static)
