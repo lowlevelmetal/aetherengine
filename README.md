@@ -1,5 +1,3 @@
----
-
 ````markdown
 # Aether Engine
 
