@@ -2,64 +2,16 @@
  * Aether Engine
  * Matthew Todd Geiger
  *
- * Aether.cpp
+ * EngineError.cpp
  */
 
-#include "include/Aether.hpp"
+#include "SDL3/SDL.h"
+
+#include "Aether/EngineError.hpp"
+
+#include <sstream>
 
 namespace Aether {
-
-Engine::Engine(std::string windowTitle, uint16_t resx, uint16_t resy)
-                :   windowTitle_(windowTitle),
-                    resx_(resx), resy_(resy)
-{}
-
-Engine::~Engine() {
-    if(!cleaned_)
-        cleanup();
-}
-
-void Engine::init() {
-    if(!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
-        throw EngineError::FromSDL(EngineErrorCode::SDLInitFailure);
-    }
-
-    win_ = SDL_CreateWindow(windowTitle_.c_str(), resx_, resy_, SDL_WINDOW_RESIZABLE);
-    if(!win_) {
-        throw EngineError::FromSDL(EngineErrorCode::WindowCreationFailed);
-    }
-
-    renderer_ = SDL_CreateRenderer(win_, nullptr);
-    if(!renderer_) {
-        throw EngineError::FromSDL(EngineErrorCode::RendererCreationFailed);
-    }
-}
-
-void Engine::cleanup() {
-    SDL_DestroyRenderer(renderer_);
-    SDL_DestroyWindow(win_);
-
-    cleaned_ = true;
-}
-
-bool Engine::handleEvents() {
-    SDL_Event event;
-
-    while(SDL_PollEvent(&event)) {
-        if(event.type == SDL_EVENT_QUIT) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-void Engine::clear() {
-}
-
-void Engine::present() {
-}
-
 
 EngineError::EngineError(EngineErrorCode code,
                 const std::string& message,
@@ -72,6 +24,7 @@ EngineError::EngineError(EngineErrorCode code,
 EngineErrorCode EngineError::code() const noexcept { return code_; }
 const std::string& EngineError::subsystem() const noexcept { return subsystem_; }
 
+// Easy SDL related error
 EngineError EngineError::FromSDL(EngineErrorCode code, const std::string& subsystem) {
     return EngineError(code, SDL_GetError(), subsystem);
 }

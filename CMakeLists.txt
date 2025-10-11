@@ -25,6 +25,11 @@ target_compile_definitions(aether PRIVATE SDL_STATIC AETHER_ENGINE_INTERNAL)
 
 target_link_libraries(aether PRIVATE SDL3::SDL3-static)
 
+target_include_directories(aether
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/include
+)
+
 option(AETHER_BUILD_EXAMPLES "Build example programs for AetherEngine" ON)
 
 if(AETHER_BUILD_EXAMPLES)

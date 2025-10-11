@@ -6,7 +6,9 @@
  * main.cpp
  */
 
-#include "Aether.hpp"
+#include "Aether/Engine.hpp"
+#include "Aether/EngineError.hpp"
+
 #include <iostream>
 
 int main() {
