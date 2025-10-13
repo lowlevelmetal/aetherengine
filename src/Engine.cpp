@@ -41,7 +41,8 @@ void Engine::cleanup() {
         SDL_DestroyWindow(win_);
     }
 
-    SDL_Quit();
+    if(SDL_WasInit(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+        SDL_Quit();
 
     renderer_ = nullptr;
     win_ = nullptr;
