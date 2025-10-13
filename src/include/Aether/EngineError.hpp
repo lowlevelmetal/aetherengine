@@ -19,8 +19,9 @@ enum class EngineErrorCode {
     SDLInitFailure,
     WindowCreationFailed,
     RendererCreationFailed,
+    WindowAndRendererCreationFailed,
 
-    Unkown
+    Unknown
 };
 
 class AETHERAPI EngineError : public std::runtime_error {

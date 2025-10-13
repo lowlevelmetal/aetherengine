@@ -20,6 +20,9 @@ int main() {
 
         while(!quit) {
             quit = engine.handleEvents();
+            engine.clear();
+            engine.draw();
+            engine.present();
         }
 
         engine.cleanup();

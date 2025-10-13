@@ -44,7 +44,8 @@ const char* EngineError::ToString(EngineErrorCode code) {
         case EngineErrorCode::SDLInitFailure: return "SDLInitFailure";
         case EngineErrorCode::WindowCreationFailed: return "SDLCreateWindow failure";
         case EngineErrorCode::RendererCreationFailed: return "SDLCreateRenderer failure";
-        case EngineErrorCode::Unkown: return "Unkown";
+        case EngineErrorCode::WindowAndRendererCreationFailed: return "SDLCreateWindowAndRenderer failure";
+        case EngineErrorCode::Unknown: return "Unkown";
     }
     return "Unkown";
 }

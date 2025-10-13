@@ -14,6 +14,7 @@
 #include "macro.hpp"
 
 #include <string>
+#include <cstdint>
 
 namespace Aether {
 
@@ -31,6 +32,7 @@ class AETHERAPI Engine {
         void cleanup();
         bool handleEvents();
         void clear();
+        void draw();
         void present();
 
     private:

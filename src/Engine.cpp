@@ -26,21 +26,25 @@ void Engine::init() {
         throw EngineError::FromSDL(EngineErrorCode::SDLInitFailure);
     }
 
-    win_ = SDL_CreateWindow(windowTitle_.c_str(), resx_, resy_, SDL_WINDOW_RESIZABLE);
-    if(!win_) {
-        throw EngineError::FromSDL(EngineErrorCode::WindowCreationFailed);
+    if (!SDL_CreateWindowAndRenderer(windowTitle_.c_str(), resx_, resy_, SDL_WINDOW_RESIZABLE, &win_, &renderer_)) {
+        throw EngineError::FromSDL(EngineErrorCode::WindowAndRendererCreationFailed);
     }
-
-    renderer_ = SDL_CreateRenderer(win_, nullptr);
-    if(!renderer_) {
-        throw EngineError::FromSDL(EngineErrorCode::RendererCreationFailed);
-    }
+    SDL_SetRenderLogicalPresentation(renderer_, resx_, resy_, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 }
 
 void Engine::cleanup() {
-    SDL_DestroyRenderer(renderer_);
-    SDL_DestroyWindow(win_);
+    if(renderer_) {
+        SDL_DestroyRenderer(renderer_);
+    }
 
+    if(win_) {
+        SDL_DestroyWindow(win_);
+    }
+
+    SDL_Quit();
+
+    renderer_ = nullptr;
+    win_ = nullptr;
     cleaned_ = true;
 }
 
@@ -58,9 +62,17 @@ bool Engine::handleEvents() {
 }
 
 void Engine::clear() {
+    SDL_RenderClear(renderer_);
+}
+
+void Engine::draw() {
+    // Drawing would go here
+    // Set to black
+    SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
 }
 
 void Engine::present() {
+    SDL_RenderPresent(renderer_);
 }
 
 } // namespace Aether
