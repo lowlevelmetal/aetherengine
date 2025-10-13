@@ -12,7 +12,7 @@
 #include <iostream>
 
 int main() {
-    Aether::Engine engine("Basic Window", 640, 480);
+    Aether::Engine engine("Basic Window", 1280, 720);
     
     try {
         engine.init();
