@@ -15,6 +15,7 @@
 
 #include <string>
 #include <cstdint>
+#include <memory>
 
 namespace Aether {
 
@@ -24,9 +25,13 @@ namespace Aether {
  * Main engine implementation
  */
 class AETHERAPI Engine {
-    public:
+    private:
         Engine(std::string windowTitle, uint16_t resx, uint16_t resy);
+
+    public:
         ~Engine();
+
+        static std::unique_ptr<Engine> CreateEngine(std::string windowTitle, uint16_t resx, uint16_t resy);
 
         void init();
         void cleanup();

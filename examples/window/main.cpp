@@ -12,20 +12,20 @@
 #include <iostream>
 
 int main() {
-    Aether::Engine engine("Basic Window", 1280, 720);
-    
+    auto engine = Aether::Engine::CreateEngine("Basic Window", 1280, 720);
+
     try {
-        engine.init();
+        engine->init();
         bool quit = false;
 
         while(!quit) {
-            quit = engine.handleEvents();
-            engine.clear();
-            engine.draw();
-            engine.present();
+            quit = engine->handleEvents();
+            engine->clear();
+            engine->draw();
+            engine->present();
         }
 
-        engine.cleanup();
+        engine->cleanup();
 
     } catch(Aether::EngineError& err) {
         std::cerr << err.what() << std::endl;

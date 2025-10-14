@@ -9,6 +9,8 @@
 #include "Aether/EngineError.hpp"
 #include "Aether/Logger.hpp"
 
+#include <memory>
+
 namespace Aether {
 
 Engine::Engine(std::string windowTitle, uint16_t resx, uint16_t resy)
@@ -26,6 +28,11 @@ Engine::~Engine() {
         Logger::Debug("Engine auto clean running");
         cleanup();
     }
+}
+
+std::unique_ptr<Engine> Engine::CreateEngine(std::string windowTitle, uint16_t resx, uint16_t resy) {
+    std::unique_ptr<Engine> engine(new Engine(windowTitle, resx, resy)); 
+    return std::move(engine);
 }
 
 void Engine::init() {
