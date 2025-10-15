@@ -18,7 +18,7 @@ int main() {
         engine->init();
         bool quit = false;
 
-        while(!quit) {
+        while (!quit) {
             quit = engine->handleEvents();
             engine->clear();
             engine->draw();
@@ -27,7 +27,7 @@ int main() {
 
         engine->cleanup();
 
-    } catch(Aether::EngineError& err) {
+    } catch (Aether::EngineError &err) {
         std::cerr << err.what() << std::endl;
         return EXIT_FAILURE;
     }

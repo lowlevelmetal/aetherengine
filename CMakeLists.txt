@@ -10,6 +10,8 @@ set(SDL_SHARED OFF CACHE BOOL "Build SDL statically" FORCE)
 set(SDL_STATIC ON CACHE BOOL "Build SDL static library" FORCE)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON CACHE BOOL "Build PIC code for static lib" FORCE)
 
+add_compile_definitions($<$<CONFIG:Debug,RelWithDebInfo>:_DEBUG>)
+
 add_subdirectory(3rd/sdl)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
