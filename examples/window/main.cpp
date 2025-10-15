@@ -7,9 +7,9 @@
  */
 
 #include "Aether/Engine.hpp"
-#include "Aether/EngineError.hpp"
 
 #include <iostream>
+#include <stdexcept>
 
 int main() {
     auto engine = Aether::Engine::CreateEngine("Basic Window", 1280, 720);
@@ -27,7 +27,7 @@ int main() {
 
         engine->cleanup();
 
-    } catch (Aether::EngineError &err) {
+    } catch (std::runtime_error &err) {
         std::cerr << err.what() << std::endl;
         return EXIT_FAILURE;
     }

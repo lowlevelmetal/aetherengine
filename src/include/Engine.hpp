@@ -7,9 +7,7 @@
 
 #pragma once
 
-#ifdef AETHER_ENGINE_INTERNAL
 #include "SDL3/SDL.h"
-#endif
 
 #include "macro.hpp"
 
@@ -44,10 +42,8 @@ class AETHERAPI Engine {
     std::string windowTitle_;
     uint16_t resx_;
     uint16_t resy_;
-#ifdef AETHER_ENGINE_INTERNAL
     SDL_Window *win_ = nullptr;
     SDL_Renderer *renderer_ = nullptr;
-#endif
     bool cleaned_ = false;
 };
 

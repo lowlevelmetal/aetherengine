@@ -7,7 +7,7 @@
 
 #include "SDL3/SDL.h"
 
-#include "Aether/EngineError.hpp"
+#include "EngineError.hpp"
 
 #include <sstream>
 

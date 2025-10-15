@@ -5,9 +5,9 @@
  * Engine.cpp
  */
 
-#include "Aether/Engine.hpp"
-#include "Aether/EngineError.hpp"
-#include "Aether/Logger.hpp"
+#include "Engine.hpp"
+#include "EngineError.hpp"
+#include "Logger.hpp"
 
 #include <memory>
 

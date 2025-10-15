@@ -6,3 +6,6 @@
  */
 
 #pragma once
+
+#include "Engine.hpp"
+#include "EngineError.hpp"
