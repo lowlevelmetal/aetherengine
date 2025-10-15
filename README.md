@@ -37,21 +37,33 @@ cmake --build .
 ## 🧩 Example
 
 ```cpp
-#include <Aether/Aether.hpp>
+#include "Aether/Engine.hpp"
+
+#include <iostream>
+#include <stdexcept>
 
 int main() {
-    Aether::Engine engine("Aether Demo", 800, 600);
+    auto engine = Aether::Engine::CreateEngine("Basic Window", 1280, 720);
 
-    while (engine.isRunning()) {
-        engine.handleEvents();
-        engine.clear();
+    try {
+        engine->init();
+        bool quit = false;
 
-        // Draw your game objects here
+        while (!quit) {
+            quit = engine->handleEvents();
+            engine->clear();
+            engine->draw();
+            engine->present();
+        }
 
-        engine.present();
+        engine->cleanup();
+
+    } catch (std::runtime_error &err) {
+        std::cerr << err.what() << std::endl;
+        return EXIT_FAILURE;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 ```
 
@@ -61,11 +73,11 @@ int main() {
 
 ```
 Aether/
-├── src/include/       # Public headers
-├── src/           # Engine source code
-├── examples/      # Example projects
-├── assets/        # Textures, sounds, etc.
-└── CMakeLists.txt # Build configuration
+├── include/Aether/ # Interface headers
+├── src/include/    # Private Engine headers
+├── src/            # Engine source code
+├── examples/       # Example projects
+└── CMakeLists.txt  # Build configuration
 ```
 
 ---
