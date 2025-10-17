@@ -30,7 +30,7 @@ target_link_libraries(aether PRIVATE SDL3::SDL3-static)
 target_include_directories(aether
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/include
-    INTERFACE
+    PUBLIC 
         ${CMAKE_CURRENT_SOURCE_DIR}/include/
 )
 

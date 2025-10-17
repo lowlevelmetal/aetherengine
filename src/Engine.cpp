@@ -6,6 +6,7 @@
  */
 
 #include "Engine.hpp"
+#include "Aether/Engine.hpp"
 #include "EngineError.hpp"
 #include "Logger.hpp"
 
@@ -13,12 +14,12 @@
 
 namespace Aether {
 
-Engine::Engine(std::string windowTitle, uint16_t resx, uint16_t resy)
+EngineImpl::EngineImpl(std::string windowTitle, uint16_t resx, uint16_t resy)
     : windowTitle_(windowTitle), resx_(resx), resy_(resy) {
     DEBUG("Constructing Aether Engine");
 }
 
-Engine::~Engine() {
+EngineImpl::~EngineImpl() {
     DEBUG("Deconstructing Engine");
 
     // Cleaning up is supposed to happen manually(to properly catch errors), but
@@ -29,14 +30,15 @@ Engine::~Engine() {
     }
 }
 
+Engine::~Engine() = default;
+
 std::unique_ptr<Engine> Engine::CreateEngine(std::string windowTitle,
                                              uint16_t resx, uint16_t resy) {
     DEBUG("Engine factory spinning up new engine");
-    std::unique_ptr<Engine> engine(new Engine(windowTitle, resx, resy));
-    return std::move(engine);
+    return std::unique_ptr<Engine>(new EngineImpl(std::move(windowTitle), resx, resy));
 }
 
-void Engine::init() {
+void EngineImpl::init() {
     DEBUG("Initializing SDL: ", SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         ERROR("Failed to initialize SDL");
@@ -57,7 +59,7 @@ void Engine::init() {
                                      SDL_LOGICAL_PRESENTATION_LETTERBOX);
 }
 
-void Engine::cleanup() {
+void EngineImpl::cleanup() {
     if (renderer_) {
         DEBUG("Destroying renderer");
         SDL_DestroyRenderer(renderer_);
@@ -78,7 +80,7 @@ void Engine::cleanup() {
     cleaned_ = true;
 }
 
-bool Engine::handleEvents() {
+bool EngineImpl::handleEvents() {
     SDL_Event event;
 
     // Read events from SDL, very similar to win32
@@ -91,14 +93,14 @@ bool Engine::handleEvents() {
     return false;
 }
 
-void Engine::clear() { SDL_RenderClear(renderer_); }
+void EngineImpl::clear() { SDL_RenderClear(renderer_); }
 
-void Engine::draw() {
+void EngineImpl::draw() {
     // Drawing would go here
     // Set to black
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 255);
 }
 
-void Engine::present() { SDL_RenderPresent(renderer_); }
+void EngineImpl::present() { SDL_RenderPresent(renderer_); }
 
 } // namespace Aether

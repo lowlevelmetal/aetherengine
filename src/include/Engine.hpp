@@ -9,6 +9,7 @@
 
 #include "SDL3/SDL.h"
 
+#include "Aether/Engine.hpp"
 #include "macro.hpp"
 
 #include <cstdint>
@@ -22,21 +23,17 @@ namespace Aether {
  *
  * Main engine implementation
  */
-class AETHERAPI Engine {
-  private:
-    Engine(std::string windowTitle, uint16_t resx, uint16_t resy);
-
+class AETHERAPI EngineImpl final : public Engine {
   public:
-    ~Engine();
+    EngineImpl(std::string windowTitle, uint16_t resx, uint16_t resy);
+    ~EngineImpl() override;
 
-    static std::unique_ptr<Engine> CreateEngine(std::string windowTitle, uint16_t resx, uint16_t resy);
-
-    void init();
-    void cleanup();
-    bool handleEvents();
-    void clear();
-    void draw();
-    void present();
+    void init() override;
+    void cleanup() override;
+    bool handleEvents() override;
+    void clear() override;
+    void draw() override;
+    void present() override;
 
   private:
     std::string windowTitle_;
